@@ -1,0 +1,16 @@
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.status-pending { background: #fef3c7; color: #92400e; }
+.status-accepted { background: #dbeafe; color: #1d4ed8; }
+.status-intransit { background: #ede9fe; color: #6d28d9; }
+.status-delivered, .status-fulfilled, .status-available { background: #dcfce7; color: #166534; }
+.status-failed, .status-cancelled, .status-offline { background: #fee2e2; color: #991b1b; }
+.status-busy { background: #ffedd5; color: #9a3412; }
