@@ -1,0 +1,161 @@
+<section class="page-head">
+  <div>
+    <h1>Tồn kho</h1>
+    <p>Xem và cập nhật tồn kho theo từng kho</p>
+  </div>
+  <form [formGroup]="filterForm" class="inventory-filters">
+    <label class="sr-only" for="warehouse-filter">Chọn kho hàng</label>
+    <p-select
+      inputId="warehouse-filter"
+      [options]="warehouses"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Chọn kho hàng"
+      formControlName="warehouseId"
+      [loading]="loadingWarehouses"
+      [disabled]="loadingWarehouses || warehouses.length === 0"
+      (onChange)="onWarehouseChanged($event.value)"
+    ></p-select>
+    <label class="sr-only" for="inventory-search">Tìm vật tư</label>
+    <input id="inventory-search" pInputText formControlName="searchTerm" placeholder="Tìm vật tư...">
+    <p-button
+      label="Thêm tồn kho"
+      icon="pi pi-plus"
+      [disabled]="!filterForm.controls.warehouseId.value || loadingItems || itemsError"
+      (onClick)="openCreateDialog()"
+    ></p-button>
+  </form>
+</section>
+
+<section class="card inventory-card">
+  <div *ngIf="warehousesError" class="load-error">
+    <span>Không thể tải danh sách kho hàng.</span>
+    <p-button label="Thử lại" severity="secondary" [outlined]="true" size="small" (onClick)="loadWarehouses()"></p-button>
+  </div>
+  <div *ngIf="itemsError" class="load-error">
+    <span>Không thể tải danh mục vật tư.</span>
+    <p-button label="Thử lại" severity="secondary" [outlined]="true" size="small" (onClick)="loadItems()"></p-button>
+  </div>
+  <app-empty-state
+    *ngIf="!loadingWarehouses && !warehousesError && warehouses.length === 0"
+    title="Chưa có kho hàng"
+    description="Cần tạo kho hàng trước khi quản lý tồn kho."
+  ></app-empty-state>
+  <div class="table-wrap" *ngIf="warehouses.length > 0">
+    <p-table
+      [value]="filteredInventories"
+      dataKey="id"
+      [loading]="loadingInventories"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      responsiveLayout="scroll"
+    >
+      <ng-template #header>
+        <tr>
+          <th>Vật tư</th>
+          <th>Đơn vị</th>
+          <th class="number-cell">Tồn thực tế</th>
+          <th class="number-cell">Đang giữ chỗ</th>
+          <th class="number-cell">Ngưỡng an toàn</th>
+          <th class="number-cell">Khả dụng</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-inventory>
+        <tr>
+          <td><strong>{{ inventory.itemName }}</strong></td>
+          <td>{{ inventory.unit }}</td>
+          <td class="number-cell">{{ inventory.quantityOnHand | number }}</td>
+          <td class="number-cell">{{ inventory.quantityCommitted | number }}</td>
+          <td class="number-cell">{{ inventory.safetyStock | number }}</td>
+          <td class="number-cell" [ngClass]="availabilityClass(inventory.available)">
+            <strong>{{ inventory.available | number }}</strong>
+          </td>
+          <td>
+            <p-button label="Sửa" icon="pi pi-pencil" severity="secondary" [outlined]="true" size="small" (onClick)="editInventory(inventory)"></p-button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <tr><td colspan="7">
+          <app-empty-state
+            *ngIf="!inventoriesError"
+            [title]="loadingInventories ? 'Đang tải tồn kho…' : (filterForm.controls.searchTerm.value ? 'Không tìm thấy vật tư' : 'Kho chưa có tồn kho')"
+            [description]="filterForm.controls.searchTerm.value ? 'Thử từ khóa khác.' : 'Thêm cặp kho–vật tư để ghi nhận số lượng.'"
+          ></app-empty-state>
+        </td></tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div *ngIf="inventoriesError" class="load-error">
+    <span>Không thể tải tồn kho của {{ selectedWarehouseName }}.</span>
+    <p-button label="Thử lại" severity="secondary" [outlined]="true" size="small" (onClick)="loadInventories()"></p-button>
+  </div>
+  <div class="inventory-note" *ngIf="warehouses.length > 0">
+    Khả dụng = Tồn thực tế − Đang giữ chỗ − Ngưỡng an toàn.
+  </div>
+</section>
+
+<p-dialog
+  [(visible)]="dialogVisible"
+  [header]="editingInventory ? 'Cập nhật tồn kho – ' + editingInventory.itemName + ' (' + editingInventory.unit + ')' : 'Thêm vật tư vào kho'"
+  [modal]="true"
+  [draggable]="false"
+  [style]="{ width: 'min(460px, 96vw)' }"
+>
+  <form [formGroup]="inventoryForm" (ngSubmit)="saveInventory()" class="inventory-form">
+    <div class="field" *ngIf="!editingInventory">
+      <label for="inventory-item">Vật tư<span class="required">*</span></label>
+      <p-select
+        inputId="inventory-item"
+        [options]="availableItems"
+        optionLabel="name"
+        optionValue="id"
+        placeholder="Chọn vật tư"
+        formControlName="itemId"
+        [filter]="true"
+        appendTo="body"
+      ></p-select>
+      <small class="field-error" *ngIf="inventoryForm.controls.itemId.invalid && inventoryForm.controls.itemId.touched">Vui lòng chọn vật tư.</small>
+    </div>
+    <div class="field">
+      <label for="inventory-on-hand">Tồn thực tế<span class="required">*</span></label>
+      <p-inputNumber
+        inputId="inventory-on-hand"
+        formControlName="quantityOnHand"
+        [min]="0"
+        [showButtons]="true"
+        [useGrouping]="false"
+      ></p-inputNumber>
+      <small class="field-error" *ngIf="inventoryForm.controls.quantityOnHand.invalid && inventoryForm.controls.quantityOnHand.touched">Số lượng phải lớn hơn hoặc bằng 0.</small>
+    </div>
+    <div class="field">
+      <label for="inventory-committed">Đang giữ chỗ</label>
+      <p-inputNumber
+        inputId="inventory-committed"
+        formControlName="quantityCommitted"
+        [readonly]="true"
+        [disabled]="true"
+        [useGrouping]="false"
+      ></p-inputNumber>
+      <small class="field-hint">Số lượng được hệ thống quản lý khi phân công.</small>
+    </div>
+    <div class="field">
+      <label for="inventory-safety-stock">Ngưỡng an toàn<span class="required">*</span></label>
+      <p-inputNumber
+        inputId="inventory-safety-stock"
+        formControlName="safetyStock"
+        [min]="0"
+        [showButtons]="true"
+        [useGrouping]="false"
+      ></p-inputNumber>
+      <small class="field-error" *ngIf="inventoryForm.controls.safetyStock.invalid && inventoryForm.controls.safetyStock.touched">Ngưỡng phải lớn hơn hoặc bằng 0.</small>
+    </div>
+    <div class="inventory-warning">“Đang giữ chỗ” do hệ thống tự tính khi phân công và không thể chỉnh sửa.</div>
+    <div class="dialog-actions">
+      <p-button label="Hủy" severity="secondary" [outlined]="true" type="button" (onClick)="dialogVisible = false"></p-button>
+      <p-button label="Lưu" type="submit" [loading]="saving" [disabled]="saving"></p-button>
+    </div>
+  </form>
+</p-dialog>

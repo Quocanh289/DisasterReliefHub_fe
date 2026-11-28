@@ -1,0 +1,27 @@
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.page-head p { margin: 4px 0 0; color: var(--muted); }
+.catalog-card { padding: 0; overflow: hidden; }
+.table-wrap { min-width: 0; overflow-x: auto; }
+.actions-heading { min-width: 150px; }
+.row-actions { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.coordinates { color: var(--muted); font-size: 12px; }
+.status-chip { display: inline-flex; padding: 2px 10px; border-radius: 999px; color: var(--muted); background: var(--neutral-soft); font-size: 12px; font-weight: 600; white-space: nowrap; }
+.status-chip.active { color: var(--success); background: var(--success-soft); }
+.load-error { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px; color: var(--danger); }
+.editor-form { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; }
+.field { display: flex; min-width: 0; flex-direction: column; gap: 6px; }
+.field label, .checkbox-field { font-size: 13px; font-weight: 600; }
+.required { margin-left: 2px; color: var(--danger); }
+.field input:not([type="checkbox"]) { width: 100%; min-height: 38px; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font: inherit; }
+.field input[type="datetime-local"] { min-width: 0; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field-error { color: var(--danger); font-size: 12px; }
+.field-hint { color: var(--muted); font-size: 12px; }
+.checkbox-field { display: flex; align-items: center; gap: 8px; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 8px; padding-top: 8px; }
+app-map-picker { display: block; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+
+@media (max-width: 640px) {
+  .page-head { align-items: flex-start; flex-direction: column; }
+  .form-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,202 @@
+<section class="page-head">
+  <div>
+    <h1>Danh mục</h1>
+    <p>Quản lý sự kiện thiên tai, kho và vật tư</p>
+  </div>
+  <p-button label="Thêm mới" icon="pi pi-plus" (onClick)="openCreateDialog()"></p-button>
+</section>
+
+<section class="card catalog-card">
+  <p-tabs [value]="activeTab" (valueChange)="setActiveTab($event)">
+    <p-tablist>
+      <p-tab value="events">Sự kiện thiên tai</p-tab>
+      <p-tab value="warehouses">Kho hàng</p-tab>
+      <p-tab value="items">Vật tư</p-tab>
+    </p-tablist>
+
+    <p-tabpanels>
+      <p-tabpanel value="events">
+        <div class="table-wrap">
+          <p-table [value]="events" dataKey="id" [loading]="loading.events" responsiveLayout="scroll">
+            <ng-template #header>
+              <tr>
+                <th>Tên sự kiện</th><th>Loại thiên tai</th><th>Thời gian</th><th>Trạng thái</th><th class="actions-heading">Thao tác</th>
+              </tr>
+            </ng-template>
+            <ng-template #body let-event>
+              <tr>
+                <td><strong>{{ event.name }}</strong></td>
+                <td>{{ formatEventType(event.type) }}</td>
+                <td>{{ event.startTime | date:'dd/MM/yyyy' }} – {{ event.endTime | date:'dd/MM/yyyy' }}</td>
+                <td><span class="status-chip" [class.active]="event.isActive">{{ event.isActive ? 'Đang hoạt động' : 'Đã kết thúc' }}</span></td>
+                <td class="row-actions">
+                  <p-button label="Sửa" icon="pi pi-pencil" severity="secondary" [outlined]="true" size="small" (onClick)="editEvent(event)"></p-button>
+                  <p-button icon="pi pi-trash" severity="danger" [outlined]="true" size="small" ariaLabel="Xóa sự kiện" [disabled]="deletingId === event.id" (onClick)="confirmDelete('events', event.id, event.name)"></p-button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template #emptymessage>
+              <tr><td colspan="5"><app-empty-state *ngIf="!loadErrors.events" title="Chưa có sự kiện" description="Thêm sự kiện thiên tai đầu tiên để bắt đầu quản lý."></app-empty-state></td></tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div class="load-error" *ngIf="loadErrors.events">
+          <span>Không thể tải danh sách sự kiện.</span>
+          <p-button label="Thử lại" severity="secondary" [outlined]="true" size="small" (onClick)="retry('events')"></p-button>
+        </div>
+      </p-tabpanel>
+
+      <p-tabpanel value="warehouses">
+        <div class="table-wrap">
+          <p-table [value]="warehouses" dataKey="id" [loading]="loading.warehouses" responsiveLayout="scroll">
+            <ng-template #header>
+              <tr><th>Tên kho</th><th>Địa chỉ</th><th>Tọa độ</th><th>Trạng thái</th><th class="actions-heading">Thao tác</th></tr>
+            </ng-template>
+            <ng-template #body let-warehouse>
+              <tr>
+                <td><strong>{{ warehouse.name }}</strong></td>
+                <td>{{ warehouse.address || '—' }}</td>
+                <td class="coordinates">{{ warehouse.location ? (warehouse.location.latitude + ', ' + warehouse.location.longitude) : 'Chưa chọn vị trí' }}</td>
+                <td><span class="status-chip" [class.active]="warehouse.isActive">{{ warehouse.isActive ? 'Hoạt động' : 'Tạm ngưng' }}</span></td>
+                <td class="row-actions">
+                  <p-button label="Sửa" icon="pi pi-pencil" severity="secondary" [outlined]="true" size="small" (onClick)="editWarehouse(warehouse)"></p-button>
+                  <p-button icon="pi pi-trash" severity="danger" [outlined]="true" size="small" ariaLabel="Xóa kho" [disabled]="deletingId === warehouse.id" (onClick)="confirmDelete('warehouses', warehouse.id, warehouse.name)"></p-button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template #emptymessage>
+              <tr><td colspan="5"><app-empty-state *ngIf="!loadErrors.warehouses" title="Chưa có kho hàng" description="Thêm kho và vị trí để quản lý tồn kho cứu trợ."></app-empty-state></td></tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div class="load-error" *ngIf="loadErrors.warehouses">
+          <span>Không thể tải danh sách kho hàng.</span>
+          <p-button label="Thử lại" severity="secondary" [outlined]="true" size="small" (onClick)="retry('warehouses')"></p-button>
+        </div>
+      </p-tabpanel>
+
+      <p-tabpanel value="items">
+        <div class="table-wrap">
+          <p-table [value]="items" dataKey="id" [loading]="loading.items" responsiveLayout="scroll">
+            <ng-template #header>
+              <tr><th>Tên vật tư</th><th>Phân loại</th><th>Đơn vị</th><th>Đặc tính</th><th class="actions-heading">Thao tác</th></tr>
+            </ng-template>
+            <ng-template #body let-item>
+              <tr>
+                <td><strong>{{ item.name }}</strong></td><td>{{ item.category || '—' }}</td><td>{{ item.unit }}</td>
+                <td>{{ item.perishable ? 'Dễ hỏng' : 'Thông thường' }}</td>
+                <td class="row-actions">
+                  <p-button label="Sửa" icon="pi pi-pencil" severity="secondary" [outlined]="true" size="small" (onClick)="editItem(item)"></p-button>
+                  <p-button icon="pi pi-trash" severity="danger" [outlined]="true" size="small" ariaLabel="Xóa vật tư" [disabled]="deletingId === item.id" (onClick)="confirmDelete('items', item.id, item.name)"></p-button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template #emptymessage>
+              <tr><td colspan="5"><app-empty-state *ngIf="!loadErrors.items" title="Chưa có vật tư" description="Thêm vật tư để đưa vào danh mục cứu trợ."></app-empty-state></td></tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div class="load-error" *ngIf="loadErrors.items">
+          <span>Không thể tải danh mục vật tư.</span>
+          <p-button label="Thử lại" severity="secondary" [outlined]="true" size="small" (onClick)="retry('items')"></p-button>
+        </div>
+      </p-tabpanel>
+    </p-tabpanels>
+  </p-tabs>
+</section>
+
+<p-dialog
+  [(visible)]="dialogVisible"
+  [header]="dialogTitle"
+  [modal]="true"
+  [draggable]="false"
+  [style]="{ width: 'min(560px, 96vw)' }"
+>
+  <form *ngIf="activeTab === 'events'" [formGroup]="eventForm" (ngSubmit)="saveCatalogEntry()" class="editor-form">
+    <div class="field">
+      <label for="event-name">Tên sự kiện<span class="required">*</span></label>
+      <input id="event-name" pInputText formControlName="name">
+      <small class="field-error" *ngIf="eventForm.controls.name.invalid && eventForm.controls.name.touched">Vui lòng nhập tên sự kiện.</small>
+    </div>
+    <div class="field">
+      <label for="event-type">Loại thiên tai<span class="required">*</span></label>
+      <p-select inputId="event-type" [options]="eventTypes" optionLabel="label" optionValue="value" formControlName="type" appendTo="body"></p-select>
+    </div>
+    <div class="field">
+      <label for="event-description">Mô tả</label>
+      <input id="event-description" pInputText formControlName="description">
+    </div>
+    <div class="form-grid">
+      <div class="field">
+        <label for="event-start">Bắt đầu<span class="required">*</span></label>
+        <input id="event-start" type="datetime-local" formControlName="startTime">
+      </div>
+      <div class="field">
+        <label for="event-end">Kết thúc<span class="required">*</span></label>
+        <input id="event-end" type="datetime-local" formControlName="endTime">
+      </div>
+    </div>
+    <div class="field">
+      <label for="event-active">Trạng thái</label>
+      <p-select inputId="event-active" [options]="activityOptions" optionLabel="label" optionValue="value" formControlName="isActive" appendTo="body"></p-select>
+    </div>
+    <div class="dialog-actions">
+      <p-button label="Hủy" severity="secondary" [outlined]="true" type="button" (onClick)="dialogVisible = false"></p-button>
+      <p-button label="Lưu" type="submit" [loading]="saving" [disabled]="saving"></p-button>
+    </div>
+  </form>
+
+  <form *ngIf="activeTab === 'warehouses'" [formGroup]="warehouseForm" (ngSubmit)="saveCatalogEntry()" class="editor-form">
+    <div class="field">
+      <label for="warehouse-name">Tên kho<span class="required">*</span></label>
+      <input id="warehouse-name" pInputText formControlName="name">
+      <small class="field-error" *ngIf="warehouseForm.controls.name.invalid && warehouseForm.controls.name.touched">Vui lòng nhập tên kho.</small>
+    </div>
+    <div class="field">
+      <label for="warehouse-address">Địa chỉ</label>
+      <input id="warehouse-address" pInputText formControlName="address">
+    </div>
+    <div class="field">
+      <label>Vị trí kho<span class="required">*</span></label>
+      <app-map-picker [value]="warehouseForm.controls.location.value" (valueChange)="onLocationChange($event)"></app-map-picker>
+      <small class="field-hint" *ngIf="warehouseForm.controls.location.value as location">
+        {{ location.latitude | number:'1.4-6' }}, {{ location.longitude | number:'1.4-6' }}
+      </small>
+      <small class="field-error" *ngIf="warehouseForm.controls.location.invalid && warehouseForm.controls.location.touched">Nhấn vào bản đồ để chọn vị trí kho.</small>
+    </div>
+    <div class="field">
+      <label for="warehouse-active">Trạng thái</label>
+      <p-select inputId="warehouse-active" [options]="warehouseActivityOptions" optionLabel="label" optionValue="value" formControlName="isActive" appendTo="body"></p-select>
+    </div>
+    <div class="dialog-actions">
+      <p-button label="Hủy" severity="secondary" [outlined]="true" type="button" (onClick)="dialogVisible = false"></p-button>
+      <p-button label="Lưu" type="submit" [loading]="saving" [disabled]="saving"></p-button>
+    </div>
+  </form>
+
+  <form *ngIf="activeTab === 'items'" [formGroup]="itemForm" (ngSubmit)="saveCatalogEntry()" class="editor-form">
+    <div class="field">
+      <label for="item-name">Tên vật tư<span class="required">*</span></label>
+      <input id="item-name" pInputText formControlName="name">
+      <small class="field-error" *ngIf="itemForm.controls.name.invalid && itemForm.controls.name.touched">Vui lòng nhập tên vật tư.</small>
+    </div>
+    <div class="field">
+      <label for="item-category">Phân loại<span class="required">*</span></label>
+      <input id="item-category" pInputText formControlName="category">
+    </div>
+    <div class="field">
+      <label for="item-unit">Đơn vị tính<span class="required">*</span></label>
+      <input id="item-unit" pInputText formControlName="unit">
+    </div>
+    <label class="checkbox-field">
+      <p-checkbox inputId="item-perishable" formControlName="perishable" [binary]="true"></p-checkbox>
+      <span>Hàng dễ hỏng</span>
+    </label>
+    <div class="dialog-actions">
+      <p-button label="Hủy" severity="secondary" [outlined]="true" type="button" (onClick)="dialogVisible = false"></p-button>
+      <p-button label="Lưu" type="submit" [loading]="saving" [disabled]="saving"></p-button>
+    </div>
+  </form>
+</p-dialog>
+
+<p-confirmDialog></p-confirmDialog>
