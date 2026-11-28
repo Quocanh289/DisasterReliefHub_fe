@@ -1,0 +1,176 @@
+<section class="page-head">
+  <div>
+    <h1>Gửi yêu cầu cứu trợ</h1>
+    <p>Chọn vị trí trên bản đồ và nhập vật tư cần hỗ trợ</p>
+  </div>
+</section>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="request-layout">
+  <section class="card request-form-card">
+    <h2>Thông tin yêu cầu</h2>
+
+    <div class="field">
+      <label for="request-phone">Số điện thoại liên hệ<span class="required">*</span></label>
+      <input id="request-phone" pInputText type="tel" formControlName="phone" autocomplete="tel" placeholder="Ví dụ: 0900000000">
+      <small class="field-error" *ngIf="form.controls.phone.hasError('required') && form.controls.phone.touched">Vui lòng nhập số điện thoại.</small>
+      <small class="field-error" *ngIf="form.controls.phone.hasError('pattern') && form.controls.phone.touched">Số điện thoại cần từ 9 đến 15 chữ số, có thể bắt đầu bằng +.</small>
+    </div>
+
+    <div class="field">
+      <label for="request-event">Sự kiện thiên tai</label>
+      <p-select
+        inputId="request-event"
+        [options]="events"
+        optionLabel="name"
+        optionValue="id"
+        placeholder="Không thuộc sự kiện cụ thể"
+        [showClear]="true"
+        [loading]="eventsLoading"
+        [disabled]="eventsLoading || eventsError"
+        formControlName="eventId"
+        appendTo="body"
+      ></p-select>
+      <small class="field-hint">Không bắt buộc. Có thể để trống nếu yêu cầu không thuộc sự kiện cụ thể.</small>
+      <div class="catalog-error" *ngIf="eventsError">
+        <span>Không tải được sự kiện.</span>
+        <p-button label="Thử lại" severity="secondary" [outlined]="true" size="small" type="button" (onClick)="loadEvents()"></p-button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Mức độ khẩn cấp<span class="required">*</span></label>
+      <div class="urgency-picker" role="group" aria-label="Chọn mức độ khẩn cấp">
+        <button
+          *ngFor="let level of urgencyLevels"
+          type="button"
+          [class.selected]="form.controls.urgency.value === level"
+          [class.urgent]="level >= 4 && form.controls.urgency.value === level"
+          [attr.aria-pressed]="form.controls.urgency.value === level"
+          (click)="setUrgency(level)"
+        >{{ level }}</button>
+      </div>
+      <div class="urgency-preview">
+        <app-urgency-badge [level]="form.controls.urgency.value"></app-urgency-badge>
+        <span class="field-hint">1 = thấp · 5 = rất khẩn cấp</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="affected-people">Số người bị ảnh hưởng<span class="required">*</span></label>
+      <p-inputNumber
+        inputId="affected-people"
+        formControlName="affectedPeople"
+        [min]="1"
+        [showButtons]="true"
+        [useGrouping]="false"
+      ></p-inputNumber>
+      <small class="field-error" *ngIf="form.controls.affectedPeople.invalid && form.controls.affectedPeople.touched">Số người phải là số nguyên lớn hơn hoặc bằng 1.</small>
+    </div>
+
+    <div class="field supplies-field">
+      <div class="supplies-heading">
+        <label>Vật tư cần hỗ trợ<span class="required">*</span></label>
+        <p-button
+          label="Thêm vật tư"
+          icon="pi pi-plus"
+          severity="secondary"
+          [outlined]="true"
+          size="small"
+          type="button"
+          [disabled]="itemsLoading || itemsError || items.length === 0"
+          (onClick)="addItemRow()"
+        ></p-button>
+      </div>
+
+      <div class="catalog-error" *ngIf="itemsError">
+        <span>Không tải được danh mục vật tư.</span>
+        <p-button label="Thử lại" severity="secondary" [outlined]="true" size="small" type="button" (onClick)="loadItems()"></p-button>
+      </div>
+      <app-empty-state
+        *ngIf="!itemsLoading && !itemsError && items.length === 0"
+        title="Chưa có vật tư trong danh mục"
+        description="Vui lòng thử lại sau hoặc liên hệ điều phối viên."
+      ></app-empty-state>
+
+      <div class="supply-list" formArrayName="items" *ngIf="items.length > 0">
+        <div class="supply-row" *ngFor="let row of itemRows.controls; let index = index" [formGroupName]="index">
+          <div class="field supply-select">
+            <label [for]="'supply-item-' + index">Vật tư</label>
+            <p-select
+              [inputId]="'supply-item-' + index"
+              [options]="itemOptionsFor(index)"
+              optionLabel="label"
+              optionValue="id"
+              placeholder="Chọn vật tư"
+              [loading]="itemsLoading"
+              formControlName="itemId"
+              appendTo="body"
+            ></p-select>
+            <small class="field-error" *ngIf="row.get('itemId')?.invalid && row.get('itemId')?.touched">Vui lòng chọn vật tư.</small>
+          </div>
+          <div class="field supply-quantity">
+            <label [for]="'supply-quantity-' + index">Số lượng</label>
+            <p-inputNumber
+              [inputId]="'supply-quantity-' + index"
+              formControlName="quantity"
+              [min]="1"
+              [showButtons]="true"
+              [useGrouping]="false"
+            ></p-inputNumber>
+            <small class="field-error" *ngIf="row.get('quantity')?.invalid && row.get('quantity')?.touched">Số lượng phải là số nguyên lớn hơn 0.</small>
+          </div>
+          <p-button
+            icon="pi pi-times"
+            severity="danger"
+            [text]="true"
+            type="button"
+            ariaLabel="Xóa vật tư"
+            [disabled]="itemRows.length === 1"
+            (onClick)="removeItemRow(index)"
+          ></p-button>
+        </div>
+      </div>
+
+      <small class="field-error" *ngIf="itemRows.hasError('minlength') && itemRows.touched">Cần chọn ít nhất một vật tư.</small>
+    </div>
+
+    <p-button
+      label="Gửi yêu cầu"
+      icon="pi pi-send"
+      type="submit"
+      styleClass="submit-request"
+      [style]="{ width: '100%' }"
+      [loading]="submitting"
+      [disabled]="submitting || eventsLoading || itemsLoading || items.length === 0"
+    ></p-button>
+  </section>
+
+  <section class="card map-card">
+    <div class="map-heading">
+      <div>
+        <h2>Vị trí cần cứu trợ</h2>
+        <p class="field-hint">Nhấn vào bản đồ để đặt hoặc di chuyển ghim.</p>
+      </div>
+      <p-button
+        label="Lấy vị trí hiện tại"
+        icon="pi pi-map-marker"
+        severity="secondary"
+        [outlined]="true"
+        size="small"
+        type="button"
+        [loading]="locating"
+        [disabled]="locating"
+        (onClick)="useCurrentLocation()"
+      ></p-button>
+    </div>
+
+    <app-map-picker [value]="selectedLocation" (valueChange)="onLocationChange($event)"></app-map-picker>
+
+    <div class="location-coordinates" *ngIf="selectedLocation as location">
+      <i class="pi pi-map-marker" aria-hidden="true"></i>
+      <span>{{ location.latitude | number:'1.4-6' }}, {{ location.longitude | number:'1.4-6' }}</span>
+    </div>
+    <small class="field-error" *ngIf="locationControlInvalid">Vui lòng chọn vị trí cần cứu trợ trên bản đồ.</small>
+    <p class="map-note">Bản đồ OpenStreetMap. Tọa độ được gửi đúng định dạng longitude, latitude.</p>
+  </section>
+</form>

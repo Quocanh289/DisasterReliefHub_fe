@@ -1,0 +1,87 @@
+<section class="page-head">
+  <div>
+    <h1>Yêu cầu của tôi</h1>
+    <p>Theo dõi trạng thái các yêu cầu cứu trợ đã gửi</p>
+  </div>
+  <p-button label="Gửi yêu cầu mới" icon="pi pi-plus" (onClick)="newRequest()"></p-button>
+</section>
+
+<section class="card requests-card">
+  <div class="requests-toolbar">
+    <span class="request-count">{{ requests.length }} yêu cầu</span>
+  </div>
+
+  <div class="loading-state" *ngIf="loading && requests.length === 0" role="status">
+    <i class="pi pi-spin pi-spinner" aria-hidden="true"></i>
+    <span>Đang tải yêu cầu...</span>
+  </div>
+
+  <app-empty-state
+    *ngIf="!loading && !loadError && requests.length === 0"
+    title="Bạn chưa gửi yêu cầu nào"
+    description="Khi cần hỗ trợ, hãy tạo yêu cầu cứu trợ mới."
+  ></app-empty-state>
+
+  <div *ngIf="loadError" class="load-error">
+    <span>Không thể tải danh sách yêu cầu.</span>
+    <p-button label="Thử lại" severity="secondary" [outlined]="true" (onClick)="loadRequests()"></p-button>
+  </div>
+
+  <div class="table-wrap" *ngIf="requests.length > 0">
+    <p-table [value]="requests" dataKey="id" [loading]="loading" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+      <ng-template #header>
+        <tr>
+          <th>Thời gian gửi</th>
+          <th>Vật tư & tiến độ</th>
+          <th>Khẩn cấp</th>
+          <th>Số người</th>
+          <th>Vị trí (Vĩ độ, Kinh độ)</th>
+          <th>Trạng thái</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-request>
+        <tr>
+          <td class="created-at">{{ request.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td class="items-cell">
+            <div class="request-item" *ngFor="let item of request.items">
+              <div class="item-line">
+                <strong>{{ item.itemName }}</strong>
+                <span>{{ item.quantityFulfilled | number }} / {{ item.quantityNeeded | number }} {{ item.unit }}</span>
+              </div>
+              <div class="progress-track" role="progressbar"
+                [attr.aria-valuenow]="itemProgressPercent(item)"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                [attr.aria-label]="'Tiến độ ' + item.itemName">
+                <span [style.width.%]="itemProgressPercent(item)"></span>
+              </div>
+            </div>
+          </td>
+          <td><app-urgency-badge [level]="request.urgency"></app-urgency-badge></td>
+          <td>{{ request.affectedPeople }}</td>
+          <td class="coordinates">{{ request.location.latitude | number:'1.4-6' }}, {{ request.location.longitude | number:'1.4-6' }}</td>
+          <td><app-status-tag [status]="request.status"></app-status-tag></td>
+          <td class="action-cell">
+            <p-button
+              *ngIf="request.status === 'Pending'"
+              label="Hủy"
+              icon="pi pi-times"
+              severity="danger"
+              [outlined]="true"
+              size="small"
+              [loading]="cancellingId === request.id"
+              [disabled]="cancellingId !== null"
+              (onClick)="requestCancellation(request)"
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <tr><td colspan="7"></td></tr>
+      </ng-template>
+    </p-table>
+  </div>
+</section>
+
+<p-confirmDialog></p-confirmDialog>

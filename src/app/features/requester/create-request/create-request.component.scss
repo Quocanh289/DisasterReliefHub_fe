@@ -1,0 +1,41 @@
+.page-head { margin-bottom: 16px; }
+.page-head p { margin: 4px 0 0; color: var(--muted); }
+.request-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 16px; }
+.request-form-card, .map-card { display: flex; min-width: 0; flex-direction: column; gap: 16px; }
+.request-form-card h2, .map-heading h2 { margin: 0; }
+.field { display: flex; min-width: 0; flex-direction: column; gap: 6px; }
+.field > label, .supplies-heading > label { font-size: 13px; font-weight: 600; }
+.required { margin-left: 2px; color: var(--danger); }
+.field-hint, .map-note { margin: 0; color: var(--muted); font-size: 12px; }
+.field-error { color: var(--danger); font-size: 12px; }
+.catalog-error { display: flex; align-items: center; gap: 8px; color: var(--danger); font-size: 12px; }
+.urgency-picker { display: grid; grid-template-columns: repeat(5, 1fr); overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.urgency-picker button { min-height: 38px; border: 0; border-right: 1px solid var(--border); color: var(--muted); background: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.urgency-picker button:last-child { border-right: 0; }
+.urgency-picker button.selected { color: #fff; background: var(--primary); }
+.urgency-picker button.selected.urgent { background: var(--danger); }
+.urgency-picker button:focus-visible { position: relative; z-index: 1; outline: 2px solid var(--primary); outline-offset: -2px; }
+.urgency-preview { display: flex; align-items: center; gap: 10px; }
+.supplies-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.supply-list { display: flex; flex-direction: column; gap: 12px; }
+.supply-row { display: grid; grid-template-columns: minmax(0, 1fr) 120px 36px; align-items: start; gap: 8px; }
+.supply-row > p-button { margin-top: 24px; }
+.map-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.map-heading .field-hint { margin-top: 4px; }
+app-map-picker { display: block; min-height: 460px; overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius); }
+.location-coordinates { display: flex; align-items: center; gap: 6px; color: var(--primary); font-size: 13px; font-weight: 600; }
+.map-note { margin-top: -8px; }
+:host ::ng-deep .submit-request { width: 100%; }
+:host ::ng-deep .submit-request .p-button { width: 100%; min-height: 38px; border-radius: var(--radius-sm); background: var(--primary); }
+
+@media (max-width: 960px) {
+  .request-layout { grid-template-columns: minmax(0, 1fr); }
+  app-map-picker { min-height: 380px; }
+}
+
+@media (max-width: 560px) {
+  .request-form-card, .map-card { padding: 16px; }
+  .map-heading { align-items: stretch; flex-direction: column; }
+  .map-heading p-button { align-self: flex-start; }
+  .supply-row { grid-template-columns: minmax(0, 1fr) 100px 32px; gap: 6px; }
+}
