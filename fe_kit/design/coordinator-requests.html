@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yêu cầu cứu trợ – ReliefHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body>
+<!-- Mockup: Yêu cầu cứu trợ | Role: Coordinator -->
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-logo">✚</div>ReliefHub</div>
+    <div class="nav-label">Điều phối viên</div>
+    <a class="nav-item active" href="coordinator-requests.html"><span class="ico">📍</span>Yêu cầu cứu trợ</a><a class="nav-item" href="coordinator-volunteers.html"><span class="ico">👥</span>Tình nguyện viên</a><a class="nav-item" href="inventory.html"><span class="ico">📦</span>Tồn kho</a><a class="nav-item" href="notifications.html"><span class="ico">🔔</span>Thông báo<span class="count">3</span></a>
+    <div class="sidebar-footer"><a class="nav-item" href="login.html"><span class="ico">⎋</span>Đăng xuất</a></div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div class="muted">Sự kiện: <b style="color:var(--text)">Lũ lụt miền Trung 11/2026</b></div>
+      <div class="topbar-right">
+        <a class="bell" href="notifications.html">🔔<span class="dot"></span></a>
+        <div class="user"><div class="avatar">LH</div><div><div style="font-weight:600">Lê Thu Hà</div><span class="role-chip">Coordinator</span></div></div>
+      </div>
+    </header>
+    <main class="content">
+<div class="page-head"><div><h1>Yêu cầu cứu trợ</h1><p>Theo dõi và phân công các yêu cầu đang chờ xử lý</p></div><div class="row"></div></div>
+<div class="stats">
+  <div class="stat"><div class="lbl">Chờ xử lý</div><div class="num" style="color:var(--primary)">12</div></div>
+  <div class="stat"><div class="lbl">Khẩn cấp (4–5)</div><div class="num" style="color:var(--danger)">5</div></div>
+  <div class="stat"><div class="lbl">Đang giao</div><div class="num" style="color:#B45309">7</div></div>
+  <div class="stat"><div class="lbl">Đã hoàn thành hôm nay</div><div class="num" style="color:var(--success)">18</div></div>
+</div>
+<div class="grid-2-1">
+  <div class="card p0">
+    <div class="toolbar"><input class="input" placeholder="🔍 Tìm theo tên, SĐT"><select class="select"><option>Trạng thái: Chờ xử lý</option></select><select class="select"><option>Khẩn cấp: Tất cả</option></select></div>
+    <table class="table"><tr><th>Mức</th><th>Người yêu cầu</th><th>Vật tư</th><th>Số người</th><th>Gửi lúc</th><th>Trạng thái</th><th></th></tr>
+    <tr class="selected"><td><span class="urg urg-5">5</span></td><td><b>Nguyễn Văn An</b><div class="small muted">0900000000</div></td><td>Nước × 5, Gạo × 10</td><td>3</td><td>27/11 08:30</td><td><span class="tag tag-info">Chờ xử lý</span></td><td><a class="btn btn-primary btn-sm" href="coordinator-assign.html">Phân công</a></td></tr>
+    <tr><td><span class="urg urg-4">4</span></td><td><b>Phạm Thị Bình</b><div class="small muted">0911222333</div></td><td>Thuốc × 2</td><td>1</td><td>27/11 07:10</td><td><span class="tag tag-info">Chờ xử lý</span></td><td><a class="btn btn-primary btn-sm" href="coordinator-assign.html">Phân công</a></td></tr>
+    <tr><td><span class="urg urg-3">3</span></td><td><b>Hoàng Văn Cường</b><div class="small muted">0988777666</div></td><td>Áo phao × 4</td><td>4</td><td>26/11 16:45</td><td><span class="tag tag-warn">Đã phân công</span></td><td><button class="btn btn-outline btn-sm">Chi tiết</button></td></tr>
+    <tr><td><span class="urg urg-2">2</span></td><td><b>Đỗ Thị Dung</b><div class="small muted">0933444555</div></td><td>Mì gói × 20</td><td>6</td><td>26/11 10:00</td><td><span class="tag tag-success">Đã nhận</span></td><td><button class="btn btn-outline btn-sm">Chi tiết</button></td></tr>
+    </table>
+    <div class="pager"><span>Hiển thị 1–4 / 24</span><span>‹ 1 2 3 ›</span></div>
+  </div>
+  <div class="card stack">
+    <h2 style="margin:0">Bản đồ</h2>
+    <div class="map" style="min-height:420px"><div class="road" style="left:0;right:0;top:38%;height:10px"></div><div class="road" style="top:0;bottom:0;left:30%;width:10px"></div><div class="road" style="top:0;bottom:0;left:72%;width:8px"></div><div class="zoom"><span>+</span><span>−</span></div>
+      <div class="pin pin-urgent" style="left:46%;top:30%"></div><div class="pin pin-urgent" style="left:62%;top:55%"></div>
+      <div class="pin pin-req" style="left:25%;top:62%"></div><div class="pin pin-req" style="left:80%;top:22%"></div>
+      <div class="pin pin-wh" style="left:35%;top:45%"></div><div class="pin pin-wh" style="left:70%;top:75%"></div>
+      <div class="popup" style="left:30%;top:6%"><b>Nguyễn Văn An</b><br>Khẩn cấp 5 · 3 người<br>Nước × 5, Gạo × 10</div>
+      <div class="legend"><span><i style="background:var(--danger)"></i>Yêu cầu khẩn cấp (4–5)</span><span><i style="background:var(--primary)"></i>Yêu cầu khác</span><span><i style="background:var(--success);border-radius:2px"></i>Kho</span></div>
+    </div>
+  </div>
+</div>
+    </main>
+  </div>
+</div>
+
+</body></html>

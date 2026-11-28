@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AuthResponse, LoginRequest, RefreshRequest, RegisterRequest, UserRole } from '../models/auth.model';
+import { AuthResponse, LoginRequest, RegisterRequest, Role } from '../models/models';
 import { TokenStorageService } from './token-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   readonly currentUser = signal<AuthResponse | null>(null);
+  readonly isAuthenticated = computed(() => this.currentUser() !== null);
 
   constructor(private http: HttpClient, private tokens: TokenStorageService, private router: Router) {
     this.currentUser.set(this.tokens.read());
@@ -26,8 +27,14 @@ export class AuthService {
     );
   }
 
-  refresh(request: RefreshRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${environment.apiUrl}/auth/refresh`, request);
+  refresh(): Observable<AuthResponse> {
+    const refreshToken = this.tokens.refreshToken();
+    if (!refreshToken) {
+      return throwError(() => new Error('Không tìm thấy refresh token.'));
+    }
+    return this.http.post<AuthResponse>(`${environment.apiUrl}/auth/refresh`, { refreshToken }).pipe(
+      tap((auth) => this.storeAuth(auth))
+    );
   }
 
   storeAuth(auth: AuthResponse): void {
@@ -41,12 +48,12 @@ export class AuthService {
     void this.router.navigate(['/login']);
   }
 
-  getDefaultRouteByRole(role: UserRole): string {
-    const routes: Record<UserRole, string> = {
-      Admin: '/admin/events',
-      Coordinator: '/coordinator/dashboard',
-      Volunteer: '/volunteer/tasks',
-      Requester: '/requester/requests'
+  getDefaultRouteByRole(role: Role): string {
+    const routes: Record<Role, string> = {
+      Admin: '/coordinator/requests',
+      Coordinator: '/coordinator/requests',
+      Volunteer: '/volunteer/assignments',
+      Requester: '/requester/new'
     };
     return routes[role];
   }

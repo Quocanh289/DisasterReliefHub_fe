@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đăng nhập – ReliefHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body>
+<!-- Mockup: Đăng nhập | API: POST /auth/login -->
+<div class="auth">
+  <div class="auth-side">
+    <div class="brand" style="color:#fff;padding:0"><div class="brand-logo" style="background:#fff;color:var(--primary)">✚</div>ReliefHub</div>
+    <div><h2>Kết nối nhu cầu cứu trợ<br>với kho hàng và tình nguyện viên</h2><p style="opacity:.85">Gửi yêu cầu, điều phối vật tư và theo dõi giao nhận trên cùng một nền tảng.</p></div>
+    <div class="small" style="opacity:.7">© 2026 Nhóm 1</div>
+  </div>
+  <div class="auth-form"><div class="auth-card card">
+    <h1 style="margin-bottom:4px">Đăng nhập</h1><p class="muted" style="margin:0 0 20px">Chào mừng bạn quay lại</p>
+    <div class="stack">
+      <div class="alert alert-danger">⚠ Email hoặc mật khẩu không đúng. <span class="muted">(hiện khi API trả 401)</span></div>
+      <div class="field"><label>Email<span class="req">*</span></label><input class="input" value="requester@example.test"></div>
+      <div class="field"><label>Mật khẩu<span class="req">*</span></label><input class="input" type="password" value="xxxxxxxxxxxx"></div>
+      <button class="btn btn-primary btn-block">Đăng nhập</button>
+      <div class="muted" style="text-align:center">Chưa có tài khoản? <a href="register.html">Đăng ký</a></div>
+    </div>
+    <hr style="border:0;border-top:1px solid var(--border);margin:20px 0 12px">
+    <div class="small muted">Sau khi đăng nhập, chuyển trang theo role: Requester → Gửi yêu cầu · Volunteer → Nhiệm vụ của tôi · Coordinator/Admin → Yêu cầu cứu trợ</div>
+  </div></div>
+</div></body></html>

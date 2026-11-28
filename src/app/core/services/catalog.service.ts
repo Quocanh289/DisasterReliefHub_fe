@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { DisasterEvent, InventoryItem, Item, UpsertInventoryRequest, Warehouse } from '../models/catalog.model';
+import { DisasterEvent, InventoryItem, Item, UpsertInventoryRequest, Warehouse } from '../models/models';
 
 @Injectable({ providedIn: 'root' })
 export class CatalogService {
@@ -31,6 +31,12 @@ export class CatalogService {
     return this.http.get<InventoryItem[]>(`${environment.apiUrl}/inventories${query}`);
   }
   upsertInventory(body: UpsertInventoryRequest): Observable<InventoryItem> {
-    return this.http.put<InventoryItem>(`${environment.apiUrl}/inventories`, body);
+    const payload: UpsertInventoryRequest = {
+      warehouseId: body.warehouseId,
+      itemId: body.itemId,
+      quantityOnHand: body.quantityOnHand,
+      safetyStock: body.safetyStock
+    };
+    return this.http.put<InventoryItem>(`${environment.apiUrl}/inventories`, payload);
   }
 }

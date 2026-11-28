@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AssignmentResponse, CreateAssignmentDto, UpdateAssignmentStatusDto } from '../models/assignment.model';
+import { AssignmentResponse, CreateAssignmentDto, UpdateAssignmentStatusDto } from '../models/models';
 
 @Injectable({ providedIn: 'root' })
 export class AssignmentService {

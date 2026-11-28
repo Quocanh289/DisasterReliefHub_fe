@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thông báo – ReliefHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body>
+<!-- Mockup: Thông báo | Role: Volunteer -->
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-logo">✚</div>ReliefHub</div>
+    <div class="nav-label">Tình nguyện viên</div>
+    <a class="nav-item" href="volunteer-assignments.html"><span class="ico">✓</span>Nhiệm vụ của tôi</a><a class="nav-item" href="volunteer-profile.html"><span class="ico">👤</span>Hồ sơ của tôi</a><a class="nav-item active" href="notifications.html"><span class="ico">🔔</span>Thông báo<span class="count">3</span></a>
+    <div class="sidebar-footer"><a class="nav-item" href="login.html"><span class="ico">⎋</span>Đăng xuất</a></div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div class="muted">Sự kiện: <b style="color:var(--text)">Lũ lụt miền Trung 11/2026</b></div>
+      <div class="topbar-right">
+        <a class="bell" href="notifications.html">🔔<span class="dot"></span></a>
+        <div class="user"><div class="avatar">TM</div><div><div style="font-weight:600">Trần Minh</div><span class="role-chip">Volunteer</span></div></div>
+      </div>
+    </header>
+    <main class="content">
+<div class="page-head"><div><h1>Thông báo</h1><p>100 thông báo gần nhất (GET /notifications/mine)</p></div><div class="row"></div></div>
+<div class="card p0">
+  <div class="tabs"><span class="on">Tất cả</span><span>Chưa đọc (3)</span></div>
+<div class="list-item unread"><div class="notif-ico" style="background:var(--primary-soft)">📦</div><div style="flex:1"><div class="row between"><b>Bạn có nhiệm vụ cứu trợ mới</b><span class="small muted">5 phút trước</span></div><div class="muted">Yêu cầu tại Phường Phú Hội đã được phân công cho bạn.</div></div><span class=unread-dot></span></div><div class="list-item unread"><div class="notif-ico" style="background:var(--success-soft)">✓</div><div style="flex:1"><div class="row between"><b>Giao hàng thành công</b><span class="small muted">1 giờ trước</span></div><div class="muted">Nhiệm vụ #A-0038 đã được xác nhận giao xong.</div></div><span class=unread-dot></span></div><div class="list-item unread"><div class="notif-ico" style="background:var(--warning-soft)">⚠</div><div style="flex:1"><div class="row between"><b>Cập nhật nhiệm vụ</b><span class="small muted">3 giờ trước</span></div><div class="muted">Điều phối viên đã thay đổi thời gian dự kiến.</div></div><span class=unread-dot></span></div><div class="list-item"><div class="notif-ico" style="background:var(--neutral-soft)">ℹ</div><div style="flex:1"><div class="row between"><b>Chào mừng đến ReliefHub</b><span class="small muted">2 ngày trước</span></div><div class="muted">Hãy cập nhật kỹ năng và vị trí trong Hồ sơ của tôi.</div></div></div>
+  <div class="pager"><span>Chưa có API đánh dấu đã đọc (PATCH /notifications/{id}/read không có) → hiển thị theo trường isRead</span><span></span></div>
+</div>
+    </main>
+  </div>
+</div>
+
+</body></html>

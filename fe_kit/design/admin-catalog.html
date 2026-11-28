@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Danh mục – ReliefHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body>
+<!-- Mockup: Danh mục | Role: Admin -->
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-logo">✚</div>ReliefHub</div>
+    <div class="nav-label">Quản trị</div>
+    <a class="nav-item" href="coordinator-requests.html"><span class="ico">📍</span>Yêu cầu cứu trợ</a><a class="nav-item" href="coordinator-volunteers.html"><span class="ico">👥</span>Tình nguyện viên</a><a class="nav-item" href="inventory.html"><span class="ico">📦</span>Tồn kho</a><a class="nav-item active" href="admin-catalog.html"><span class="ico">⚙</span>Danh mục</a><a class="nav-item" href="notifications.html"><span class="ico">🔔</span>Thông báo<span class="count">3</span></a>
+    <div class="sidebar-footer"><a class="nav-item" href="login.html"><span class="ico">⎋</span>Đăng xuất</a></div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div class="muted">Sự kiện: <b style="color:var(--text)">Lũ lụt miền Trung 11/2026</b></div>
+      <div class="topbar-right">
+        <a class="bell" href="notifications.html">🔔<span class="dot"></span></a>
+        <div class="user"><div class="avatar">QT</div><div><div style="font-weight:600">Quản trị viên</div><span class="role-chip">Admin</span></div></div>
+      </div>
+    </header>
+    <main class="content">
+<div class="page-head"><div><h1>Danh mục</h1><p>Quản lý sự kiện thiên tai, kho và vật tư</p></div><div class="row"><button class="btn btn-primary">＋ Thêm mới</button></div></div>
+<div class="card p0">
+  <div class="tabs"><span>Sự kiện</span><span class="on">Kho</span><span>Vật tư</span></div>
+  <table class="table"><tr><th>Tên kho</th><th>Địa chỉ</th><th>Tọa độ</th><th>Trạng thái</th><th></th></tr>
+    <tr><td><b>Kho Trung tâm</b></td><td>12 Lê Lợi, TP Huế</td><td class="small muted">16.4637, 107.5909</td><td><span class="tag tag-success">Hoạt động</span></td><td class="row"><button class="btn btn-outline btn-sm">✎</button><button class="btn btn-danger-outline btn-sm">🗑</button></td></tr>
+    <tr><td><b>Kho Phú Bài</b></td><td>Hương Thủy</td><td class="small muted">16.4004, 107.7026</td><td><span class="tag tag-success">Hoạt động</span></td><td class="row"><button class="btn btn-outline btn-sm">✎</button><button class="btn btn-danger-outline btn-sm">🗑</button></td></tr>
+    <tr><td><b>Kho Đông Hà</b></td><td>Đông Hà, Quảng Trị</td><td class="small muted">16.8163, 107.1003</td><td><span class="tag tag-neutral">Tạm ngưng</span></td><td class="row"><button class="btn btn-outline btn-sm">✎</button><button class="btn btn-danger-outline btn-sm">🗑</button></td></tr>
+  </table>
+  <div class="pager"><span>Xóa kho đang được dùng → API trả 409, hiện toast lỗi</span><span></span></div>
+</div>
+<div class="grid-2">
+  <div class="card"><h3>Tab "Sự kiện" gồm cột</h3><span class="muted">Tên sự kiện · Loại thiên tai · Thời gian bắt đầu / kết thúc · Trạng thái · Sửa / Xóa</span></div>
+  <div class="card"><h3>Tab "Vật tư" gồm cột</h3><span class="muted">Tên vật tư · Đơn vị · Danh mục · Sửa / Xóa</span></div>
+</div>
+    </main>
+  </div>
+</div>
+<div class="overlay"><div class="modal" style="width:560px">
+  <div class="modal-head"><h2 style="margin:0">Thêm kho mới</h2><span class="muted" style="font-size:18px">✕</span></div>
+  <div class="modal-body">
+    <div class="field"><label>Tên kho<span class="req">*</span></label><input class="input" value="Kho Phú Bài"></div>
+    <div class="field"><label>Địa chỉ</label><input class="input" value="Thị xã Hương Thủy, Thừa Thiên Huế"></div>
+    <div class="field"><label>Vị trí<span class="req">*</span></label><div class="map" style="min-height:200px"><div class="road" style="left:0;right:0;top:38%;height:10px"></div><div class="road" style="top:0;bottom:0;left:30%;width:10px"></div><div class="road" style="top:0;bottom:0;left:72%;width:8px"></div><div class="zoom"><span>+</span><span>−</span></div><div class="pin pin-wh big" style="left:48%;top:40%"></div><div class="coord">16.4004, 107.7026</div></div></div>
+    <div class="row"><span class="switch"></span><span>Đang hoạt động</span></div>
+  </div>
+  <div class="modal-foot"><button class="btn btn-outline">Hủy</button><button class="btn btn-primary">Lưu</button></div>
+</div></div>
+</body></html>

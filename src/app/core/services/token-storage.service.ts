@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthResponse } from '../models/auth.model';
+import { AuthResponse } from '../models/models';
 
 const AUTH_KEY = 'disaster-relief-auth';
 

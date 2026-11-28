@@ -3,6 +3,7 @@ import { CreateRequestComponent } from './create-request/create-request.componen
 import { MyRequestsComponent } from './my-requests/my-requests.component';
 
 export const requesterRoutes: Routes = [
-  { path: 'requests', component: MyRequestsComponent },
-  { path: 'requests/new', component: CreateRequestComponent }
+  { path: 'new', component: CreateRequestComponent },
+  { path: 'my', component: MyRequestsComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'new' }
 ];

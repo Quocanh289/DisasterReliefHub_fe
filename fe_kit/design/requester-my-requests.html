@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yêu cầu của tôi – ReliefHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body>
+<!-- Mockup: Yêu cầu của tôi | Role: Requester -->
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-logo">✚</div>ReliefHub</div>
+    <div class="nav-label">Người yêu cầu</div>
+    <a class="nav-item" href="requester-new-request.html"><span class="ico">＋</span>Gửi yêu cầu</a><a class="nav-item active" href="requester-my-requests.html"><span class="ico">☰</span>Yêu cầu của tôi</a><a class="nav-item" href="notifications.html"><span class="ico">🔔</span>Thông báo<span class="count">3</span></a>
+    <div class="sidebar-footer"><a class="nav-item" href="login.html"><span class="ico">⎋</span>Đăng xuất</a></div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div class="muted">Sự kiện: <b style="color:var(--text)">Lũ lụt miền Trung 11/2026</b></div>
+      <div class="topbar-right">
+        <a class="bell" href="notifications.html">🔔<span class="dot"></span></a>
+        <div class="user"><div class="avatar">NA</div><div><div style="font-weight:600">Nguyễn Văn An</div><span class="role-chip">Requester</span></div></div>
+      </div>
+    </header>
+    <main class="content">
+<div class="page-head"><div><h1>Yêu cầu của tôi</h1><p>Theo dõi trạng thái các yêu cầu đã gửi</p></div><div class="row"><a class="btn btn-primary" href="requester-new-request.html">＋ Gửi yêu cầu mới</a></div></div>
+<div class="card p0">
+  <div class="toolbar"><select class="select"><option>Tất cả trạng thái</option></select><span class="muted small" style="margin-left:auto">3 yêu cầu</span></div>
+  <table class="table">
+    <tr><th>Thời gian gửi</th><th>Vật tư</th><th>Khẩn cấp</th><th>Số người</th><th>Tiến độ</th><th>Trạng thái</th><th></th></tr>
+    <tr><td>27/11/2026 08:30</td><td>Nước uống × 5, Gạo × 10</td><td><span class="urg urg-4">4</span></td><td>3</td><td><div class="progress"><i style="width:0%"></i></div><span class="small muted">0/15</span></td><td><span class="tag tag-info">Chờ xử lý</span></td><td><button class="btn btn-danger-outline btn-sm">Hủy</button></td></tr>
+    <tr><td>26/11/2026 14:10</td><td>Thuốc × 2</td><td><span class="urg urg-5">5</span></td><td>1</td><td><div class="progress"><i style="width:50%"></i></div><span class="small muted">1/2</span></td><td><span class="tag tag-warn">Đã phân công</span></td><td></td></tr>
+    <tr><td>25/11/2026 09:00</td><td>Áo phao × 4</td><td><span class="urg urg-3">3</span></td><td>4</td><td><div class="progress"><i style="width:100%"></i></div><span class="small muted">4/4</span></td><td><span class="tag tag-success">Đã nhận</span></td><td></td></tr>
+    <tr><td>24/11/2026 18:45</td><td>Mì gói × 20</td><td><span class="urg urg-2">2</span></td><td>6</td><td>–</td><td><span class="tag tag-neutral">Đã hủy</span></td><td></td></tr>
+  </table>
+  <div class="pager"><span>Nút "Hủy" chỉ hiện khi trạng thái = Pending (POST /relief-requests/{id}/cancel, lỗi 409 nếu không hủy được)</span><span>‹ 1 ›</span></div>
+</div>
+    </main>
+  </div>
+</div>
+
+</body></html>

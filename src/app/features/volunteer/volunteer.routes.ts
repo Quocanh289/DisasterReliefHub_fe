@@ -4,5 +4,7 @@ import { TasksComponent } from './tasks/tasks.component';
 
 export const volunteerRoutes: Routes = [
   { path: 'profile', component: ProfileComponent },
-  { path: 'tasks', component: TasksComponent }
+  { path: 'assignments', component: TasksComponent },
+  { path: 'tasks', redirectTo: 'assignments', pathMatch: 'full' },
+  { path: '', pathMatch: 'full', redirectTo: 'assignments' }
 ];

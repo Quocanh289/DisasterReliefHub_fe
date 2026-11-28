@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đăng ký – ReliefHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body>
+<!-- Mockup: Đăng ký | API: POST /auth/register -->
+<div class="auth">
+  <div class="auth-side">
+    <div class="brand" style="color:#fff;padding:0"><div class="brand-logo" style="background:#fff;color:var(--primary)">✚</div>ReliefHub</div>
+    <div><h2>Tham gia cùng chúng tôi</h2><p style="opacity:.85">Đăng ký để gửi yêu cầu cứu trợ hoặc trở thành tình nguyện viên.</p></div>
+    <div class="small" style="opacity:.7">© 2026 Nhóm 1</div>
+  </div>
+  <div class="auth-form"><div class="auth-card card">
+    <h1 style="margin-bottom:20px">Tạo tài khoản</h1>
+    <div class="stack">
+      <div class="field"><label>Họ tên<span class="req">*</span></label><input class="input" value="Nguyễn Văn An"></div>
+      <div class="field"><label>Email<span class="req">*</span></label><input class="input invalid" value="an@example.test"><span class="err">Email đã được sử dụng (API trả 409)</span></div>
+      <div class="field"><label>Mật khẩu<span class="req">*</span></label><input class="input" type="password" value="xxxxxxxx"><span class="hint">Tối thiểu 12 ký tự</span></div>
+      <div class="field"><label>Bạn là<span class="req">*</span></label>
+        <div class="radio-cards">
+          <div class="radio-card on"><span class="radio"></span><div><b>Người yêu cầu</b><div class="small muted">Gửi yêu cầu cứu trợ</div></div></div>
+          <div class="radio-card"><span class="radio"></span><div><b>Tình nguyện viên</b><div class="small muted">Nhận nhiệm vụ giao hàng</div></div></div>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block">Đăng ký</button>
+      <div class="muted" style="text-align:center">Đã có tài khoản? <a href="login.html">Đăng nhập</a></div>
+    </div>
+  </div></div>
+</div></body></html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nhiệm vụ của tôi – ReliefHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body>
+<!-- Mockup: Nhiệm vụ của tôi | Role: Volunteer -->
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-logo">✚</div>ReliefHub</div>
+    <div class="nav-label">Tình nguyện viên</div>
+    <a class="nav-item active" href="volunteer-assignments.html"><span class="ico">✓</span>Nhiệm vụ của tôi</a><a class="nav-item" href="volunteer-profile.html"><span class="ico">👤</span>Hồ sơ của tôi</a><a class="nav-item" href="notifications.html"><span class="ico">🔔</span>Thông báo<span class="count">3</span></a>
+    <div class="sidebar-footer"><a class="nav-item" href="login.html"><span class="ico">⎋</span>Đăng xuất</a></div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div class="muted">Sự kiện: <b style="color:var(--text)">Lũ lụt miền Trung 11/2026</b></div>
+      <div class="topbar-right">
+        <a class="bell" href="notifications.html">🔔<span class="dot"></span></a>
+        <div class="user"><div class="avatar">TM</div><div><div style="font-weight:600">Trần Minh</div><span class="role-chip">Volunteer</span></div></div>
+      </div>
+    </header>
+    <main class="content">
+<div class="page-head"><div><h1>Nhiệm vụ của tôi</h1><p>Danh sách nhiệm vụ được phân công cho bạn</p></div><div class="row"></div></div>
+<div class="tabs card" style="padding:0 20px;border-radius:10px"><span class="on">Đang thực hiện (2)</span><span>Hoàn thành (5)</span><span>Thất bại (0)</span></div>
+<div class="grid-2">
+<div class="card stack">
+  <div class="row between"><div><h2 style="margin:0">Giao vật tư – Phường Phú Hội</h2><span class="small muted">Mã nhiệm vụ #A-0040</span></div><span class="tag tag-info">Chờ nhận</span></div>
+  <div class="timeline"><b class="now">1</b>Nhận<i class=""></i><b class="">2</b>Đang giao<i class=""></i><b class="">3</b>Đã giao</div>
+  <dl class="kv"><dt>Kho lấy hàng</dt><dd>Kho Trung tâm · 12 Lê Lợi</dd><dt>Giao đến</dt><dd>Nguyễn Văn An · 0900000000 · <a href="#">Xem bản đồ</a></dd><dt>Vật tư</dt><dd>Nước uống × 2 chai, Gạo × 5 kg</dd><dt>Dự kiến</dt><dd>27/11/2026 15:00</dd></dl>
+  
+  <div class="row" style="justify-content:flex-end"><button class="btn btn-danger-outline">Báo thất bại</button><button class="btn btn-primary">Nhận nhiệm vụ</button></div>
+</div><div class="card stack">
+  <div class="row between"><div><h2 style="margin:0">Giao thuốc – Xã Phong Điền</h2><span class="small muted">Mã nhiệm vụ #A-0040</span></div><span class="tag tag-warn">Đang giao</span></div>
+  <div class="timeline"><b class="done">1</b>Nhận<i class="done"></i><b class="now">2</b>Đang giao<i class=""></i><b class="">3</b>Đã giao</div>
+  <dl class="kv"><dt>Kho lấy hàng</dt><dd>Kho Phú Bài</dd><dt>Giao đến</dt><dd>Nguyễn Văn An · 0900000000 · <a href="#">Xem bản đồ</a></dd><dt>Vật tư</dt><dd>Thuốc hạ sốt × 2 hộp</dd><dt>Dự kiến</dt><dd>27/11/2026 11:30</dd></dl>
+  <div class="field"><label>Ghi chú</label><input class="input" value="Đã rời kho, dự kiến đến sau 30 phút"></div>
+  <div class="row" style="justify-content:flex-end"><button class="btn btn-danger-outline">Báo thất bại</button><button class="btn btn-success">Đã giao xong</button></div>
+</div>
+</div>
+<div class="alert alert-info">Luồng trạng thái: Pending → (Nhận) Accepted → (Bắt đầu giao) InTransit → Delivered / Failed. Gọi PATCH /assignments/{id}/status với body { status, note }. Lỗi 409 khi chuyển trạng thái không hợp lệ.</div>
+    </main>
+  </div>
+</div>
+
+</body></html>

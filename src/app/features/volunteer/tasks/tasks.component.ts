@@ -1,3 +1,8 @@
 import { Component } from '@angular/core';
-@Component({ selector: 'app-tasks', standalone: true, template: `<section><h1>Volunteer Tasks</h1><p>Assignment status and delivery execution for Task F5.</p></section>` })
+
+@Component({
+  selector: 'app-tasks',
+  standalone: true,
+  template: `<section class="page-card"><h1>Nhiệm vụ của tôi</h1><p>Theo dõi phân công và cập nhật tiến độ giao hàng cứu trợ.</p></section>`
+})
 export class TasksComponent {}

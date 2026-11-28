@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tồn kho – ReliefHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body>
+<!-- Mockup: Tồn kho | Role: Coordinator -->
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-logo">✚</div>ReliefHub</div>
+    <div class="nav-label">Điều phối viên</div>
+    <a class="nav-item" href="coordinator-requests.html"><span class="ico">📍</span>Yêu cầu cứu trợ</a><a class="nav-item" href="coordinator-volunteers.html"><span class="ico">👥</span>Tình nguyện viên</a><a class="nav-item active" href="inventory.html"><span class="ico">📦</span>Tồn kho</a><a class="nav-item" href="notifications.html"><span class="ico">🔔</span>Thông báo<span class="count">3</span></a>
+    <div class="sidebar-footer"><a class="nav-item" href="login.html"><span class="ico">⎋</span>Đăng xuất</a></div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div class="muted">Sự kiện: <b style="color:var(--text)">Lũ lụt miền Trung 11/2026</b></div>
+      <div class="topbar-right">
+        <a class="bell" href="notifications.html">🔔<span class="dot"></span></a>
+        <div class="user"><div class="avatar">LH</div><div><div style="font-weight:600">Lê Thu Hà</div><span class="role-chip">Coordinator</span></div></div>
+      </div>
+    </header>
+    <main class="content">
+<div class="page-head"><div><h1>Tồn kho</h1><p>Xem và cập nhật tồn kho theo từng kho</p></div><div class="row"><select class="select" style="width:240px"><option>Kho Trung tâm</option></select></div></div>
+<div class="card p0">
+  <table class="table"><tr><th>Vật tư</th><th>Đơn vị</th><th class="num-cell">Tồn</th><th class="num-cell">Đã giữ</th><th class="num-cell">Tồn an toàn</th><th class="num-cell">Khả dụng</th><th></th></tr>
+<tr><td><b>Nước uống</b></td><td>chai</td><td class="num-cell">100</td><td class="num-cell">10</td><td class="num-cell">5</td><td class="num-cell ">85</td><td><button class="btn btn-outline btn-sm">✎ Sửa</button></td></tr><tr><td><b>Gạo</b></td><td>kg</td><td class="num-cell">16</td><td class="num-cell">10</td><td class="num-cell">2</td><td class="num-cell low">4</td><td><button class="btn btn-outline btn-sm">✎ Sửa</button></td></tr><tr><td><b>Mì gói</b></td><td>thùng</td><td class="num-cell">40</td><td class="num-cell">0</td><td class="num-cell">5</td><td class="num-cell ">35</td><td><button class="btn btn-outline btn-sm">✎ Sửa</button></td></tr><tr><td><b>Thuốc hạ sốt</b></td><td>hộp</td><td class="num-cell">30</td><td class="num-cell">4</td><td class="num-cell">5</td><td class="num-cell ">21</td><td><button class="btn btn-outline btn-sm">✎ Sửa</button></td></tr><tr><td><b>Áo phao</b></td><td>cái</td><td class="num-cell">25</td><td class="num-cell">4</td><td class="num-cell">3</td><td class="num-cell ">18</td><td><button class="btn btn-outline btn-sm">✎ Sửa</button></td></tr>
+  </table>
+  <div class="pager"><span>Khả dụng = Tồn − Đã giữ − Tồn an toàn · số đỏ = sắp hết (&lt; 10)</span><span></span></div>
+</div>
+    </main>
+  </div>
+</div>
+<div class="overlay"><div class="modal" style="width:460px">
+  <div class="modal-head"><h2 style="margin:0">Cập nhật tồn kho – Gạo (kg)</h2><span class="muted" style="font-size:18px">✕</span></div>
+  <div class="modal-body">
+    <div class="field"><label>Tồn thực tế (quantityOnHand)<span class="req">*</span></label><input class="input invalid" value="5"><span class="err">Không được nhỏ hơn số đã giữ (10) – API trả 409</span></div>
+    <div class="field"><label>Tồn an toàn (safetyStock)<span class="req">*</span></label><input class="input" value="2"></div>
+    <div class="alert alert-warn">"Đã giữ" (quantityCommitted) do hệ thống tự tính khi phân công, không sửa được.</div>
+  </div>
+  <div class="modal-foot"><button class="btn btn-outline">Hủy</button><button class="btn btn-primary">Lưu</button></div>
+</div></div>
+</body></html>

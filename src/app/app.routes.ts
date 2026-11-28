@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
-import { Router, Routes, CanActivateFn } from '@angular/router';
+import { CanActivateFn, Router, Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 import { AuthService } from './core/services/auth.service';
-import { MainLayoutComponent } from './shared/layout/main-layout/main-layout.component';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 const defaultRouteGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
@@ -33,14 +33,7 @@ export const routes: Routes = [
       {
         path: 'admin',
         loadChildren: () => import('./features/admin-catalog/admin-catalog.routes').then((m) => m.adminCatalogRoutes),
-        canActivate: [roleGuard],
-        data: { roles: ['Admin'] }
-      },
-      {
-        path: 'admin/inventories',
-        loadComponent: () => import('./features/admin-catalog/inventories/inventories.component').then((m) => m.InventoriesComponent),
-        canActivate: [roleGuard],
-        data: { roles: ['Admin', 'Coordinator'] }
+        canActivate: [authGuard]
       },
       {
         path: 'coordinator',
@@ -59,6 +52,10 @@ export const routes: Routes = [
         loadChildren: () => import('./features/requester/requester.routes').then((m) => m.requesterRoutes),
         canActivate: [roleGuard],
         data: { roles: ['Requester'] }
+      },
+      {
+        path: 'notifications',
+        loadComponent: () => import('./features/notifications/notifications.component').then((m) => m.NotificationsComponent)
       }
     ]
   },

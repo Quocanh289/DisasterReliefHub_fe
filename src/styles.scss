@@ -1,3 +1,46 @@
+:root {
+  --primary: #1e6fd9;
+  --primary-dark: #1557b0;
+  --primary-soft: #e8f1fc;
+  --warning: #f59e0b;
+  --warning-soft: #fef3c7;
+  --danger: #dc2626;
+  --danger-soft: #fee2e2;
+  --success: #16a34a;
+  --success-soft: #dcfce7;
+  --neutral-soft: #f1f5f9;
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 3px rgba(16, 24, 40, .08);
+  --space: 8px;
+  --font: "Inter", "Noto Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  color-scheme: light;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+}
+
 * { box-sizing: border-box; }
-html, body { margin: 0; min-height: 100%; font-family: Inter, Arial, sans-serif; color: #1e293b; background: #f8fafc; }
+html, body { margin: 0; min-height: 100%; }
+body { font-family: var(--font); font-size: 14px; line-height: 1.5; color: var(--text); background: var(--bg); }
 button, input, select, textarea { font: inherit; }
+a { color: var(--primary); text-decoration: none; }
+h1 { margin: 0; font-size: 22px; font-weight: 700; }
+h2 { margin: 0 0 12px; font-size: 16px; font-weight: 600; }
+h3 { margin: 0 0 8px; font-size: 14px; font-weight: 600; }
+.p-component { font-family: var(--font); }
+.page-card { display: block; padding: 24px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.page-card p { margin: 8px 0 0; color: var(--muted); }
+.leaflet-relief-marker { border: 0; background: transparent; }
+.leaflet-relief-marker span { display: block; width: 18px; height: 18px; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 2px 4px rgba(0, 0, 0, .25); }
+.leaflet-relief-marker-red span { background: var(--danger); }
+.leaflet-relief-marker-blue span { background: var(--primary); }
+.leaflet-relief-marker-green span { background: var(--success); }
+.leaflet-relief-marker-orange span { background: var(--warning); }
+.leaflet-relief-marker-purple span { background: #7c3aed; }

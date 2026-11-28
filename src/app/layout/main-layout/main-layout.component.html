@@ -1,0 +1,68 @@
+<div class="app-shell">
+  <button
+    *ngIf="menuOpen"
+    class="sidebar-backdrop"
+    type="button"
+    aria-label="Đóng menu"
+    (click)="closeMenu()"
+  ></button>
+
+  <aside class="sidebar" [class.sidebar-open]="menuOpen">
+    <a class="brand" routerLink="/" (click)="closeMenu()">
+      <span class="brand-logo"><i class="pi pi-plus" aria-hidden="true"></i></span>
+      <span>ReliefHub</span>
+    </a>
+
+    <div class="nav-label">Điều phối cứu trợ</div>
+    <nav aria-label="Điều hướng chính">
+      <a
+        *ngFor="let item of menu"
+        class="nav-item"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        (click)="closeMenu()"
+      >
+        <i [class]="item.icon" aria-hidden="true"></i>
+        <span>{{ item.label }}</span>
+      </a>
+      <a class="nav-item" routerLink="/notifications" routerLinkActive="active" (click)="closeMenu()">
+        <i class="pi pi-bell" aria-hidden="true"></i>
+        <span>Thông báo</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="nav-item logout-button" type="button" (click)="logout()">
+        <i class="pi pi-sign-out" aria-hidden="true"></i>
+        <span>Đăng xuất</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-column">
+    <header class="topbar">
+      <div class="event-label">
+        <button class="menu-button" type="button" aria-label="Mở menu" (click)="menuOpen = !menuOpen">
+          <i class="pi pi-bars" aria-hidden="true"></i>
+        </button>
+        <span>Sự kiện:</span>
+        <strong>{{ activeEvent }}</strong>
+      </div>
+      <div class="topbar-right">
+        <app-notification-bell></app-notification-bell>
+        <div class="user-summary" *ngIf="auth.currentUser() as user">
+          <div class="avatar" aria-hidden="true">{{ user.fullName.charAt(0).toUpperCase() }}</div>
+          <div class="user-details">
+            <strong>{{ user.fullName }}</strong>
+            <span class="role-badge">{{ user.role }}</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+<p-toast position="top-right"></p-toast>

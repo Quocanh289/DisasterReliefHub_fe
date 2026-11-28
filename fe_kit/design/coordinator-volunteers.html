@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tình nguyện viên – ReliefHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body>
+<!-- Mockup: Tình nguyện viên | Role: Coordinator -->
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-logo">✚</div>ReliefHub</div>
+    <div class="nav-label">Điều phối viên</div>
+    <a class="nav-item" href="coordinator-requests.html"><span class="ico">📍</span>Yêu cầu cứu trợ</a><a class="nav-item active" href="coordinator-volunteers.html"><span class="ico">👥</span>Tình nguyện viên</a><a class="nav-item" href="inventory.html"><span class="ico">📦</span>Tồn kho</a><a class="nav-item" href="notifications.html"><span class="ico">🔔</span>Thông báo<span class="count">3</span></a>
+    <div class="sidebar-footer"><a class="nav-item" href="login.html"><span class="ico">⎋</span>Đăng xuất</a></div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div class="muted">Sự kiện: <b style="color:var(--text)">Lũ lụt miền Trung 11/2026</b></div>
+      <div class="topbar-right">
+        <a class="bell" href="notifications.html">🔔<span class="dot"></span></a>
+        <div class="user"><div class="avatar">LH</div><div><div style="font-weight:600">Lê Thu Hà</div><span class="role-chip">Coordinator</span></div></div>
+      </div>
+    </header>
+    <main class="content">
+<div class="page-head"><div><h1>Tình nguyện viên</h1><p>Danh sách và trạng thái sẵn sàng (GET /volunteers)</p></div><div class="row"></div></div>
+<div class="card p0">
+  <div class="toolbar"><input class="input" placeholder="🔍 Tìm theo tên, email"><select class="select"><option>Trạng thái: Tất cả</option></select><select class="select"><option>Kỹ năng: Tất cả</option></select></div>
+  <table class="table"><tr><th>Tình nguyện viên</th><th>Kỹ năng</th><th>Trạng thái</th><th class="num-cell">Đang nhận</th><th class="num-cell">Bán kính</th></tr>
+<tr><td><div class="row"><div class="avatar">M</div><div><b>Trần Minh</b><div class="small muted">volunteer@example.test</div></div></div></td><td><div class="chips"><span class=chip>Sơ cứu</span><span class=chip>Lái xe</span></div></td><td><span class="tag tag-success">● Available</span></td><td class="num-cell">0</td><td class="num-cell">15 km</td></tr><tr><td><div class="row"><div class="avatar">N</div><div><b>Lê Hoàng Nam</b><div class="small muted">nam@example.test</div></div></div></td><td><div class="chips"><span class=chip>Lái xe</span></div></td><td><span class="tag tag-warn">● Busy</span></td><td class="num-cell">2</td><td class="num-cell">20 km</td></tr><tr><td><div class="row"><div class="avatar">L</div><div><b>Võ Thị Lan</b><div class="small muted">lan@example.test</div></div></div></td><td><div class="chips"><span class=chip>Nấu ăn</span><span class=chip>Hậu cần</span></div></td><td><span class="tag tag-success">● Available</span></td><td class="num-cell">1</td><td class="num-cell">10 km</td></tr><tr><td><div class="row"><div class="avatar">B</div><div><b>Phan Quốc Bảo</b><div class="small muted">bao@example.test</div></div></div></td><td><div class="chips"><span class=chip>Bơi lội</span></div></td><td><span class="tag tag-neutral">● Offline</span></td><td class="num-cell">0</td><td class="num-cell">25 km</td></tr>
+  </table>
+  <div class="pager"><span>Hiển thị 1–4 / 4</span><span></span></div>
+</div>
+    </main>
+  </div>
+</div>
+
+</body></html>

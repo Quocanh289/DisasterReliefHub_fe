@@ -1,0 +1,49 @@
+:host { display: block; min-height: 100vh; }
+
+.auth-page { display: grid; min-height: 100vh; grid-template-columns: 1fr 1fr; background: var(--bg); }
+.auth-side { display: flex; flex-direction: column; justify-content: space-between; padding: 48px; color: #fff; background: linear-gradient(150deg, #1e6fd9, #0f3f86); }
+.brand { display: flex; align-items: center; gap: 10px; width: fit-content; color: #fff; font-size: 16px; font-weight: 700; }
+.brand-logo { display: grid; width: 32px; height: 32px; place-items: center; border-radius: 8px; color: var(--primary); background: #fff; font-size: 16px; }
+.auth-intro h2 { margin: 0 0 12px; font-size: 28px; font-weight: 700; line-height: 1.3; }
+.auth-intro p { margin: 0; opacity: .85; }
+.auth-copyright { font-size: 12px; opacity: .7; }
+.auth-form { display: grid; min-width: 0; place-items: center; padding: 32px; }
+.auth-card { width: 400px; max-width: 100%; padding: 24px; border: 1px solid var(--border); border-radius: 10px; background: #fff; box-shadow: var(--shadow); }
+.auth-card h1 { margin: 0 0 4px; font-size: 22px; }
+.auth-subtitle { margin: 0 0 20px; color: var(--muted); }
+.auth-fields { display: flex; flex-direction: column; gap: 16px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label, .role-field legend { font-size: 13px; font-weight: 600; }
+.required { margin-left: 2px; color: var(--danger); }
+.field input { width: 100%; height: 38px; padding: 0 12px; border: 1px solid var(--border); border-radius: 6px; outline: none; color: var(--text); background: #fff; font: inherit; }
+.field input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-soft); }
+.field input.invalid { border-color: var(--danger); background: #fff7f7; }
+.field-error { color: var(--danger); font-size: 12px; }
+.field-hint { color: var(--muted); font-size: 12px; }
+.role-field { min-width: 0; margin: 0; padding: 0; border: 0; }
+.role-field legend { margin-bottom: 8px; padding: 0; }
+.role-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.role-card { position: relative; display: flex; min-height: 68px; align-items: flex-start; gap: 10px; padding: 12px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; }
+.role-card.selected { border-color: var(--primary); background: var(--primary-soft); }
+.role-card input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
+.role-card input:focus-visible + .role-indicator { outline: 2px solid var(--primary); outline-offset: 2px; }
+.role-indicator { display: block; width: 16px; height: 16px; flex: none; margin-top: 2px; border: 2px solid var(--border); border-radius: 50%; background: #fff; }
+.role-card.selected .role-indicator { border: 5px solid var(--primary); }
+.role-card strong { display: block; font-size: 13px; }
+.role-description { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; }
+.auth-switch { margin: 0; color: var(--muted); text-align: center; }
+.auth-switch a { color: var(--primary); font-weight: 600; }
+
+:host ::ng-deep .auth-submit { width: 100%; }
+:host ::ng-deep .auth-submit .p-button { width: 100%; min-height: 38px; border-radius: 6px; background: var(--primary); }
+
+@media (max-width: 768px) {
+  .auth-page { grid-template-columns: 1fr; }
+  .auth-side { display: none; }
+  .auth-form { padding: 24px 16px; }
+}
+
+@media (max-width: 420px) {
+  .auth-card { padding: 20px 16px; }
+  .role-cards { grid-template-columns: 1fr; }
+}

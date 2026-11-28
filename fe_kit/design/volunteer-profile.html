@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hồ sơ của tôi – ReliefHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head><body>
+<!-- Mockup: Hồ sơ của tôi | Role: Volunteer -->
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-logo">✚</div>ReliefHub</div>
+    <div class="nav-label">Tình nguyện viên</div>
+    <a class="nav-item" href="volunteer-assignments.html"><span class="ico">✓</span>Nhiệm vụ của tôi</a><a class="nav-item active" href="volunteer-profile.html"><span class="ico">👤</span>Hồ sơ của tôi</a><a class="nav-item" href="notifications.html"><span class="ico">🔔</span>Thông báo<span class="count">3</span></a>
+    <div class="sidebar-footer"><a class="nav-item" href="login.html"><span class="ico">⎋</span>Đăng xuất</a></div>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <div class="muted">Sự kiện: <b style="color:var(--text)">Lũ lụt miền Trung 11/2026</b></div>
+      <div class="topbar-right">
+        <a class="bell" href="notifications.html">🔔<span class="dot"></span></a>
+        <div class="user"><div class="avatar">TM</div><div><div style="font-weight:600">Trần Minh</div><span class="role-chip">Volunteer</span></div></div>
+      </div>
+    </header>
+    <main class="content">
+<div class="page-head"><div><h1>Hồ sơ của tôi</h1><p>Cập nhật kỹ năng, khu vực hoạt động và trạng thái sẵn sàng</p></div><div class="row"></div></div>
+<div class="card row between">
+  <div class="row"><span class="switch"></span><div><b>Sẵn sàng nhận nhiệm vụ</b><div class="small muted">PATCH /volunteers/me/status – Available / Offline. "Busy" do hệ thống tự đặt khi đang có nhiệm vụ.</div></div></div>
+  <div class="row"><span class="tag tag-success">● Available</span><span class="muted small">Đang nhận: 0 nhiệm vụ</span></div>
+</div>
+<div class="grid-2">
+  <div class="card stack">
+    <h2 style="margin:0">Thông tin</h2>
+    <div class="form-grid"><div class="field"><label>Họ tên</label><input class="input" value="Trần Minh" disabled></div><div class="field"><label>Email</label><input class="input" value="volunteer@example.test" disabled></div></div>
+    <div class="field"><label>Kỹ năng</label><div class="chips"><span class="chip on">✓ Sơ cứu (FirstAid)</span><span class="chip on">✓ Lái xe</span><span class="chip">Bơi lội</span><span class="chip">Nấu ăn</span><span class="chip">Hậu cần</span></div></div>
+    <div class="field"><label>Bán kính hoạt động (km)<span class="req">*</span></label><input class="input" value="15"><span class="hint">Chỉ nhận nhiệm vụ trong bán kính này</span></div>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-outline">Hủy</button><button class="btn btn-primary">Lưu thay đổi</button></div>
+  </div>
+  <div class="card stack">
+    <div class="row between"><h2 style="margin:0">Vị trí của tôi</h2><span class="small muted">21.0285, 105.8542</span></div>
+    <div class="map" style="min-height:300px"><div class="road" style="left:0;right:0;top:38%;height:10px"></div><div class="road" style="top:0;bottom:0;left:30%;width:10px"></div><div class="road" style="top:0;bottom:0;left:72%;width:8px"></div><div class="zoom"><span>+</span><span>−</span></div>
+      <div class="pin pin-vol big" style="left:50%;top:40%"></div>
+      <div style="position:absolute;left:calc(50% - 90px);top:calc(40% - 76px);width:208px;height:208px;border-radius:50%;border:2px dashed #7C3AED;background:rgba(124,58,237,.08)"></div>
+      <div class="legend"><span><i style="background:#7C3AED"></i>Vị trí · vòng tròn = bán kính 15 km</span></div>
+    </div>
+  </div>
+</div>
+    </main>
+  </div>
+</div>
+
+</body></html>

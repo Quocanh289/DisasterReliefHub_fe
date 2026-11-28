@@ -1,3 +1,8 @@
 import { Component } from '@angular/core';
-@Component({ selector: 'app-items', standalone: true, template: `<section><h1>Items</h1><p>Catalog item management for Task F2.</p></section>` })
+
+@Component({
+  selector: 'app-items',
+  standalone: true,
+  template: `<section class="page-card"><h1>Vật tư cứu trợ</h1><p>Quản lý danh mục vật tư và đơn vị tính.</p></section>`
+})
 export class ItemsComponent {}

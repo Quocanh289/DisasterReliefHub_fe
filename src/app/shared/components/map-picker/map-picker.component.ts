@@ -1,11 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
 import * as L from 'leaflet';
-import { GeoLocation } from '../../../core/models/catalog.model';
+import { GeoLocation } from '../../../core/models/models';
 
+export type MarkerColor = 'red' | 'blue' | 'green' | 'orange' | 'purple';
 export interface MapMarker {
   location: GeoLocation;
   label?: string;
-  color?: 'red' | 'blue' | 'green' | 'orange';
+  color?: MarkerColor;
 }
 
 @Component({
@@ -14,7 +15,7 @@ export interface MapMarker {
   template: '<div #mapContainer class="map-picker" aria-label="Location map"></div>',
   styleUrl: './map-picker.component.scss'
 })
-export class MapPickerComponent implements OnChanges {
+export class MapPickerComponent implements AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef<HTMLDivElement>;
   @Input() value: GeoLocation | null = null;
   @Input() markers: MapMarker[] = [];
@@ -24,6 +25,11 @@ export class MapPickerComponent implements OnChanges {
   private map?: L.Map;
   private selectedMarker?: L.Marker;
   private markerLayers: L.Marker[] = [];
+
+  ngOnDestroy(): void {
+    this.map?.remove();
+    this.map = undefined;
+  }
 
   ngAfterViewInit(): void {
     this.initializeMap();
@@ -65,10 +71,26 @@ export class MapPickerComponent implements OnChanges {
     this.markerLayers = [];
     for (const markerData of this.markers) {
       const latLng: L.LatLngTuple = [markerData.location.latitude, markerData.location.longitude];
-      const marker = L.marker(latLng, { title: markerData.label }).addTo(this.map);
-      if (markerData.label) marker.bindPopup(markerData.label);
+      const marker = L.marker(latLng, {
+        title: markerData.label,
+        icon: this.createMarkerIcon(markerData.color ?? 'red')
+      }).addTo(this.map);
+      if (markerData.label) {
+        const popup = document.createElement('span');
+        popup.textContent = markerData.label;
+        marker.bindPopup(popup);
+      }
       this.markerLayers.push(marker);
     }
+  }
+
+  private createMarkerIcon(color: MarkerColor): L.DivIcon {
+    return L.divIcon({
+      className: `leaflet-relief-marker leaflet-relief-marker-${color}`,
+      html: '<span></span>',
+      iconSize: [20, 20],
+      iconAnchor: [10, 10]
+    });
   }
 
   private moveSelectedMarker(): void {
